@@ -1,0 +1,715 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+	font-family: inherit;
+}
+
+html {
+	width: 100%; /* DNU vw on html or body */
+	height: 100%;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+	overflow: hidden;
+}
+
+body {
+	width: 100%; /* DNU vw on html or body */
+	height: 100%;
+	overflow: hidden;
+	font-family: 'Montserrat', sans-serif;
+}
+/*
+green: #93bc40
+dark blue: #003d58
+*/
+h1, h2, h3, h4, h5, h6 {
+	color: #003d58;
+}
+a,
+a:visited { text-decoration: none; }
+.container {
+	width: 100%;
+	height: 100%;
+	max-width: 1920px;
+	max-height: 1080px;
+	overflow: hidden;
+}
+
+/* ======================== NAV ======================== */
+.grid-item-nav { background: rgb(147, 188, 64); }
+
+
+nav {
+	width: 100%;
+	padding: 15px 0 15px 30px;
+	height: 100%;
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-content: space-around;
+}
+
+nav li {
+	width: 100%;
+}
+
+nav a {
+	color: #fff;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: 300;
+}
+nav a:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+nav a.selected { color: #003d58; }
+
+.container-about #about-link a,
+.container-gallery #gallery-link a,
+.container-specs #specs-link a,
+.container-availabilities #availabilities-link a { color: #000; font-weight: 500; }
+
+
+
+/* ======================== shared GRID stuff ======================== */
+.grid {
+	width: 100%;
+	height: 100%;
+	max-width: 1920px;
+	max-height: 1080px;
+	display: grid;
+	column-gap: 9px;
+	row-gap: 15px;
+	justify-content: center;
+	align-items: start;
+}
+
+.grid-item {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-height: 0;
+	min-width: 0;
+	/* border: 1px dotted #ccc !important; */
+}
+.grid-item-logo {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+}
+/* img.logo */
+.grid-item-logo .logo {
+	display: block;
+	width: 100%;
+	max-width: 300px;
+	height: auto;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+.grid-item img {
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+
+
+@keyframes animateGrid {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+/* ======================== gallery.php ======================== */
+
+.gallery-overlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	max-width: 1800px;
+	max-height: 1200px;
+}
+.gallery-overlay .closer {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 6rem;
+	height: 6rem;
+	text-align: center;
+	line-height: 6rem;
+	font-size: 3rem;
+	color: #fff;
+	background: rgba(0, 0, 0, .45);
+	cursor: pointer;
+}
+
+.gallery-overlay img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+
+/* ============ GALLERY GRID [ .gallery-grid ] ============ */
+
+.gallery-grid {
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+}
+
+.gallery-grid,
+.gallery-overlay {
+	transition: .6s all ease-in-out; /* x-fade */
+}
+/*
+	.overlay is abs positioned, ergo z-index, else the zero opacity .grid remains clickable atop overlay;
+	z-index: 0 specifically to enable x-fade
+*/
+.gallery-grid {
+	opacity: 1;
+	z-index: 1;
+}
+.gallery-overlay {
+	opacity: 0;
+	z-index: 0;
+}
+/* .container-gallery.overlay-on */
+.overlay-on .gallery-grid {
+	opacity: 0;
+	z-index: 0;
+}
+.overlay-on .gallery-overlay {
+	opacity: 1;
+	z-index: 1;
+}
+
+.gallery-grid .gallery-img {
+	opacity: 0; /* re: animation */
+	cursor: pointer;
+	transform: scale(.96);
+	transition: transform .3s ease-in-out;
+	animation: animateGrid 1.2s ease-in-out forwards;
+}
+.gallery-grid .gallery-img:hover {
+	transform: scale(1);
+}
+
+/* stagger animation of grid cells w/gallery images (let logo & nav bop into view first) */
+.gallery-grid .grid-item:nth-of-type(2) { animation-delay: .15s; }
+.gallery-grid .grid-item:nth-of-type(3) { animation-delay: .3s; }
+.gallery-grid .grid-item:nth-of-type(4) { animation-delay: .45s; }
+.gallery-grid .grid-item:nth-of-type(5) { animation-delay: .6s; }
+.gallery-grid .grid-item:nth-of-type(6) { animation-delay: .75s; }
+.gallery-grid .grid-item:nth-of-type(7) { animation-delay: .9s; }
+.gallery-grid .grid-item:nth-of-type(8) { animation-delay: 1.05s; }
+.gallery-grid .grid-item:nth-of-type(9) { animation-delay: 1.2s; }
+.gallery-grid .grid-item:nth-of-type(10) { animation-delay: 1.35s; }
+.gallery-grid .grid-item:nth-of-type(11) { animation-delay: 1.5s; }
+.gallery-grid .grid-item:nth-of-type(12) { animation-delay: 1.65s; }
+.gallery-grid .grid-item:nth-of-type(13) { animation-delay: 1.8s; }
+.gallery-grid .grid-item:nth-of-type(14) { animation-delay: 1.95s; }
+.gallery-grid .grid-item:nth-of-type(15) { animation-delay: 2.1s; }
+.gallery-grid .grid-item:nth-of-type(16) { animation-delay: 2.25s; }
+.gallery-grid .grid-item:nth-of-type(17) { animation-delay: 2.4s; }
+.gallery-grid .grid-item:nth-of-type(18) { animation-delay: 2.55s; }
+.gallery-grid .grid-item:nth-of-type(18) { animation-delay: 2.7s; }
+.gallery-grid .grid-item:nth-of-type(19) { animation-delay: 3s; }
+
+
+
+
+
+/* ============ CUSTOM GRID: SPECS ============ */
+.specs-grid {
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+}
+
+.specs-grid .grid-item:nth-of-type(2) {
+	/* shorter than grid-column-start, grid-column-end ...*/
+	grid-column: 2 / span 2;
+	grid-row: 1 / span 2;
+}
+.specs-grid .grid-item:nth-of-type(8) {
+	grid-column: 1 / span 2;
+	grid-row: 3 / span 2;
+}
+.specs-grid .grid-item:nth-of-type(9) {
+	grid-column: 3 / span 2;
+	grid-row: 3 / span 2;
+}
+
+.specs-grid .gallery-img {
+	opacity: 0; /* re: animation */
+	cursor: pointer;
+	transform: scale(.96);
+	transition: transform .3s ease-in-out;
+	animation: animateGrid 1.2s ease-in-out forwards;
+}
+
+.specs-grid .grid-item:nth-of-type(2) { animation-delay: .15s; }
+.specs-grid .grid-item:nth-of-type(3) { animation-delay: .3s; }
+.specs-grid .grid-item:nth-of-type(4) { animation-delay: .45s; }
+.specs-grid .grid-item:nth-of-type(5) { animation-delay: .6s; }
+.specs-grid .grid-item:nth-of-type(6) { animation-delay: .75s; }
+.specs-grid .grid-item:nth-of-type(7) { animation-delay: .9s; }
+.specs-grid .grid-item:nth-of-type(8) { animation-delay: 1.05s; }
+.specs-grid .grid-item:nth-of-type(9) { animation-delay: 1.2s; }
+.specs-grid .grid-item:nth-of-type(10) { animation-delay: 1.35s; }
+
+.specs-grid .grid-item:nth-of-type(2) {
+	background: transparent url("../img/specs/building_tech_generators_810x540.jpg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(3) {
+	background: transparent url("../img/specs/specs-04-passenger-elevators-1.svg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(3):hover {
+	background: transparent url("../img/specs/specs-04-passenger-elevators-2.svg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(4) {
+	background: transparent url("../img/specs/specs-05-enhancements-1.svg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(4):hover {
+	background: transparent url("../img/specs/specs-05-enhancements-2.svg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(5) {
+	background: transparent url("../img/specs/specs-10-telecom-1.svg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(5):hover {
+	background: transparent url("../img/specs/specs-10-telecom-2.svg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(6) {
+	background: transparent url("../img/specs/specs-07-other-systems-facilities-1.svg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(6):hover {
+	background: transparent url("../img/specs/specs-07-other-systems-facilities-2.svg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(7) {
+	background: transparent url("../img/specs/specs-09-construction-details-1.svg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(7):hover {
+	background: transparent url("../img/specs/specs-09-construction-details-2.svg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(8) {
+	background: transparent url("../img/specs/building_tech_keep_area_clear_810x540.jpg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(9) {
+	background: transparent url("../img/specs/building_tech_electrical_810x540.jpg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(10) {
+	background: transparent url("../img/specs/specs-06-service-elevators-1.svg") 0 0 no-repeat;
+}
+.specs-grid .grid-item:nth-of-type(10):hover {
+	background: transparent url("../img/specs/specs-06-service-elevators-2.svg") 0 0 no-repeat;
+}
+
+.specs-grid .grid-item:nth-of-type(1n+2):not(:last-of-type),
+.specs-grid .grid-item:nth-of-type(1n+2):not(:last-of-type):hover {
+	background-position: center;
+}
+
+.specs-grid .grid-item .spec-text-wrapper {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-start;
+	width: 100%;
+	height: 100%;
+	padding: 0 1.5rem 1.5rem;
+	background: rgba(147, 188, 64, .6);
+	opacity: 0;
+	transition: .45s opacity ease-in-out;
+}
+.specs-grid .grid-item:hover .spec-text-wrapper {
+	opacity: 1;
+}
+
+.spec-text-wrapper > img {
+	filter: grayscale(1) brightness(9);
+	width: auto;
+	height: auto;
+	max-height: 21%;
+}
+.spec-text-wrapper h4 {
+	margin-bottom: .9rem;
+	color: #fff;
+	font-size: 1.35rem;
+	text-align: center;
+	text-shadow: 1px 1px 4px #333, -1px -1px 4px #333;
+	text-transform: uppercase;
+}
+.spec-text-wrapper p {
+	padding: 1.5rem;
+	color: #fff;
+	background: rgba(147, 188, 64, .87);
+	font-size: 1.11rem;
+	line-height: 1.5;
+}
+
+
+/* ============ AVAILABILITIES GRID [ .availabilities-grid ] ============ */
+
+.availabilities-grid {
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+}
+
+
+.availabilities-grid .grid-item-01 {
+	grid-column: 1 / span 1;
+	grid-row: 1 / span 4;
+}
+
+.availabilities-grid .grid-item-02 {
+	grid-column: 2 / span 1;
+	grid-row: 1 / span 2;
+}
+
+.availabilities-grid .grid-item-03 {
+	grid-column: 2 / span 1;
+	grid-row: 3 / span 2;
+}
+
+.availabilities-grid .grid-item-04 {
+	grid-column: 3 / span 2;
+	grid-row: 1 / span 4;
+}
+.availabilities-grid .grid-item-nav {
+	grid-column: 5 / span 1;
+	grid-row: 4 / span 2;
+}
+
+
+
+/* ============ Availabilities.php > floor specs ============ */
+/* .grid-item-floor-specs dl, */
+.floorplan-links-wrapper {
+	display: block;
+	margin-top: 1.5rem;
+	padding: .9rem; /* = floorplan image padding */
+	color: #003d58;
+	border: 1px solid rgb(147, 188, 64);
+	opacity: 0;
+	transition: .3s all ease-in-out;
+}
+/* .grid-item-floor-specs dl.on, */
+.floorplan-links-wrapper.on {
+	opacity: 1;
+}
+
+.floorplan-links-wrapper p {
+	margin-bottom: .9rem;
+}
+.floorplan-links {
+	list-style: none;
+}
+
+.floorplan-links li {
+	margin-bottom: .9rem;
+	font-size: .99rem;
+	text-transform: capitalize;
+}
+.floorplan-links a {
+	color: #003d58;
+	font-weight: 500;
+	text-decoration: none;
+	border-bottom: 1px dotted #003d58;
+}
+.floorplan-links a:hover {
+	border-bottom: 1px solid #003d58;
+}
+.floorplan-links li.selected a {
+	color: #93bc40;
+	border-bottom: 2px solid #93bc40;
+}
+
+
+
+/*
+.floor-specs {}
+h1.floor-spec-floor {}
+h2.floor-spec-rsf {}
+ */
+ .floor-specs { width: 78%; }
+
+.floor-specs h1.floor-spec-floor-number {
+	font-size: 1.5rem;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.floor-specs h2.floor-spec-rsf {
+	margin-bottom: .9rem;
+	font-size: 21px;
+	font-weight: 600;
+	color: #93bc40;
+	text-transform: uppercase;
+}
+.floor-specs h2.floor-spec-rsf:after { content: " RSF"; }
+
+.floor-specs dl {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	font-size: .99rem;
+	font-weight: 500;
+	line-height: 1.5;
+	border-bottom: 1px solid #003d58;
+}
+.floor-specs dt {
+	width: calc(100% - 3rem);
+}
+.floor-specs dd {
+	width: 3rem;
+	text-align: right;
+}
+.floor-spec-total { font-weight: 800; }
+
+.grid-item-stackplan ol {
+	height: 100%;
+	padding-left: 1.5rem;
+	display: flex;
+	flex-flow: column-reverse nowrap;
+	justify-content: space-between;
+	font-size: .69rem;
+}
+.grid-item-stackplan li {
+	height: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	background: #fff;
+	border-bottom: 1px solid #003d58;
+}
+
+.grid-item-stackplan .floor-number {
+	display: inline-block;
+	width: 1.2rem;
+	font-weight: 600;
+	margin-left: -1.2rem;
+	text-align: center;
+}
+
+.grid-item-stackplan span {
+	max-width: 100%;
+	flex-grow: 1;
+	padding: 0 .3rem;
+	color: #fff;
+}
+.grid-item-stackplan span.half { max-width: 50%; }
+.grid-item-stackplan span + span {
+	flex-grow: 2;
+}
+
+
+.grid-item-stackplan .available-now {
+	display: inline-flex;
+	height: 100%;
+	align-items: center;
+	cursor: pointer;
+}
+
+.grid-item-stackplan .available-now { background: #93bc40; }
+.grid-item-stackplan .available-date { background: #003d58; }
+
+.grid-item-stackplan a { display: inline-block; text-decoration: none; }
+.grid-item-stackplan .available-now a { color: #fff; }
+
+.grid-item-stackplan .available-now:after,
+.grid-item-stackplan .available-date:after {
+	display: inline-block;
+	padding-left: .3rem;
+	cursor: pointer;
+}
+
+.grid-item-stackplan .available-now:after {
+	color: #fff;
+	content: "RSF";
+}
+.grid-item-stackplan .available-date:after {
+	color: #99b1bc;
+}
+
+.grid-item-stackplan .percent25 { width: 25%; }
+.grid-item-stackplan .percent33 { width: 33%; }
+.grid-item-stackplan .percent50 { width: 50%; }
+.grid-item-stackplan .percent66 { width: 66%; }
+.grid-item-stackplan .percent75 { width: 75%; }
+.grid-item-stackplan .percent100 { width: 100%; }
+
+
+.grid-item-floorplan-wrapper {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	padding: 1.5rem;
+}
+
+.floorplan-default {
+	display: flex;
+	height: 100%;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	opacity: 1;
+	transition: .3s opacity ease-in-out;
+}
+.floorplan-default .logo {
+	display: block;
+	width: 100%;
+	max-width: 300px;
+	height: auto;
+	margin: 0 auto 1.5rem;
+}
+
+.floorplan-default h3 {
+	margin-bottom: .9rem;
+}
+.floorplan-default p {
+	display: block;
+	width: 100%;
+	margin-bottom: 1.5rem;
+	padding: 1.8rem;
+	font-weight: bold;
+	background: #003d58;
+	color: #fff;
+}
+
+.floorplan-image-wrapper {
+	display: none;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	height: 100%;
+	opacity: 0;
+	transition: .3s opacity ease-in-out;
+}
+
+/* .grid-item-floorplan-wrapper */
+.whole-floor .floorplan-default {
+	opacity: 0;
+	display: none;
+}
+.whole-floor .floorplan-image-wrapper {
+	opacity: 1;
+	display: flex;
+}
+
+.floorplan-image-wrapper img {
+	height: auto;
+	margin-bottom: .9rem;
+}
+
+.grid-item .floorplan-image {
+	width: calc(100% - 4.2rem);
+	height: calc(100% - 4.8rem);
+	margin: .9rem 0;
+	opacity: 0;
+	transition: .3s opacity ease-in-out;
+}
+
+.floorplan-image.on {
+	opacity: 1;
+}
+
+.floorplan-image-wrapper .street {
+	text-align: center;
+	text-transform: uppercase;
+}
+.street-north,
+.street-south {
+	width: 100%;
+}
+.street-east,
+.street-west {
+	width: 1.5rem;
+	writing-mode: vertical-lr;
+}
+
+/* ============ ABOUT GRID [ .about-grid ] ============ */
+
+.about-grid {
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+}
+
+.about-grid .grid-item {
+	/* border: 1px solid red; */
+}
+/* green: #93bc40 */
+/* dark blue: #003d58 */
+
+.about-grid .grid-item-logo {
+}
+
+.about-grid .grid-item-message {
+	grid-column: 2 / span 2;
+	grid-row: 1 / span 3;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	padding: 1.5rem;
+	line-height: 1.5;
+	text-align: justify;
+	/* border: 1px solid #003d58; */
+}
+
+.grid-item-message p {
+	margin-bottom: 1.5rem;
+}
+.grid-item-message ul {
+	margin: -.9rem 0 1.5rem 1.5rem;
+}
+.grid-item-message li {
+	margin-bottom: .9rem;
+}
+.grid-item-message a {
+	color: #93bc40;
+	font-weight: bold;
+	border-bottom: 1px dotted #93bc40;
+}
+.grid-item-message a:hover {
+	border-bottom: 1px solid #93bc40;
+}
+
+
+.about-grid .grid-item.grid-item-nav {
+	grid-column: 4 / span 1;
+	grid-row: 3 / span 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  */
